@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var DOMAIN = "http://localhost/Icha3a/public_html/";
+    var DOMAIN = "http://localhost/Icha3a/public_html";
     $("#register_form").on("submit", function () {
         var status = true;
         var status1 = true;
@@ -125,4 +125,103 @@ $(document).ready(function () {
             })
         }
     })
+    $('#rumor_create_form').on('submit', function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            type: "POST",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data == "Rumor_Added") {
+                    window.location.href = encodeURI(DOMAIN + "/manage_rumors.php?msg=Rumor Added Successfully");
+                } else
+                    alert(data);
+            }
+        })
+    })
+//-----------------------RUMORS-------------------------------
+    //Fetch Rumors
+    consultRumors();
+    function consultRumors() {
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            method: "POST",
+            data: {rumors_info: 1},
+            success: function (data) {
+                $("#get_rumors").html(data);
+            }
+        })
+    }
+
+    //Update Rumors
+    $("body").delegate(".edit_rumor", "click", function () {
+        var eid = $(this).attr("eid");
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            method: "POST",
+            dataType: "json",
+            data: {updateRumor: 1, id: eid},
+            success: function (data) {
+                console.log(data);
+                $("#id").val(data["id"]);
+                $("#select_Type").val(data["type"]);
+                $("#title").val(data["title"]);
+                $("#article").val(data["article"]);
+            }
+        })
+    })
+
+    $("#update_rumor_form").on("submit", function () {
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            method: "POST",
+            data: $("#update_rumor_form").serialize(),
+            success: function (data) {
+                alert(data);
+                consultRumors();
+                $('#form_update_rumors').modal('toggle');
+            }
+        })
+    })
+    //delete rumor
+    $("body").delegate(".del_rumor", "click", function () {
+        var did = $(this).attr("did");
+        if (confirm('Are You sure You want to Delete this Rumor?!')) {
+            $.ajax({
+                url: DOMAIN + "/includes/process.php",
+                method: 'POST',
+                data: {deleteRumor: 1, id: did},
+                success: function (data) {
+                    alert(data);
+                    consultRumors();
+                }
+            })
+        }
+    })
+
+//-----------------------------------------------------------------------
+
+    $("#search").keyup(function () {
+        search_table($(this).val());
+    })
+
+    function search_table(value) {
+        $("#consult_rumors tr").each(function () {
+            var found = "false";
+            $(this).each(function () {
+                if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                    found = "true";
+                }
+            })
+            if (found == "true")
+            {
+                $(this).show();
+            } else
+            {
+                $(this).hide();
+            }
+        })
+    }
 })
