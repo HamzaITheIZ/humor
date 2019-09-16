@@ -1,10 +1,3 @@
-<?php
-include_once("./database/constants.php");
-
-if (!isset($_SESSION["userid"])) {
-    header("location:" . DOMAIN . "/login.php");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

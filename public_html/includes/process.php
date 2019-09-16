@@ -18,6 +18,22 @@ if (isset($_POST["log_email"]) AND isset($_POST["log_password"])) {
     echo $result;
     exit();
 }
+//For Admin Registration Processsing
+if (isset($_POST["adminusername"]) AND isset($_POST["adminemail"])) {
+    $user = new User();
+    $result = $user->createAdminAccount($_POST["adminusername"], $_POST["adminemail"], $_POST["password1"]);
+    echo $result;
+    exit();
+}
+//For Admin Login Processing
+if (isset($_POST["admin_email"]) AND isset($_POST["admin_password"])) {
+    $user = new User();
+    $result = $user->AdminLogin($_POST["admin_email"], $_POST["admin_password"]);
+    echo $result;
+    exit();
+}
+//-------------------------------Rumor----------------------
+//Create Rumor
 if (isset($_POST["rumor_type"])) {
     $file = $_FILES["file"];
 
@@ -104,7 +120,6 @@ if (isset($_POST["updateRumor"])) {
 }
 //Update Record after getting data
 if (isset($_POST["select_Type"])) {
-    $m = new Manage();
     $id = $_POST["id"];
     $admin = $_POST["admin"];
     $date = $_POST["date"];
@@ -112,12 +127,65 @@ if (isset($_POST["select_Type"])) {
     $title = $_POST["title"];
     $article = $_POST["article"];
 
-    $result = $m->update_record("rumor", ["id" => $id], ["admin" => $admin, "date" => $date, "title" => $title,"article" => $article]);
-    echo $result;
+    if ($_FILES["file"]["name"] == "") {
+        $m = new Manage();
+        $result = $m->update_record("rumor", ["id" => $id], ["admin" => $admin, "date" => $date, "type" => $type, "title" => $title, "article" => $article]);
+        echo $result;
+    } else {
+        $file = $_FILES["file"];
+
+        $filename = $_FILES["file"]['name'];
+        $fileTmpName = $_FILES["file"]['tmp_name'];
+        $fileSize = $_FILES["file"]['size'];
+        $fileError = $_FILES["file"]['error'];
+        $fileType = $_FILES["file"]['type'];
+
+        $fileExt = explode('.', $filename);
+        $fileActualExt = strtolower(end($fileExt));
+
+        $allowed = array('jpg', 'jpeg', 'png');
+
+        if (in_array($fileActualExt, $allowed)) {
+            if ($fileError === 0) {
+                if ($fileSize < 1000000) {
+                    $destination_path = $_SERVER['DOCUMENT_ROOT'];
+                    $fileNameNew = uniqid('', TRUE) . "." . $fileActualExt;
+                    $fileDestination = $destination_path . "/Icha3a/public_html/images/" . $fileNameNew;
+                    move_uploaded_file($fileTmpName, $fileDestination);
+                    $m = new Manage();
+                    $result = $m->update_record("rumor", ["id" => $id], ["admin" => $admin, "date" => $date, "type" => $type, "title" => $title, "article" => $article, "image" => $fileNameNew]);
+                    echo $result;
+                    exit();
+                } else {
+                    echo 'Your File is much bigger than the maximum size!';
+                    exit();
+                }
+            } else {
+                echo 'there was an error uploading your file!';
+                exit();
+            }
+        } else {
+            echo "you cannout upload files of that type!";
+            exit();
+        }
+    }
 }
 //Delere Rumor
-if(isset($_POST["deleteRumor"])){
+if (isset($_POST["deleteRumor"])) {
     $m = new Manage();
     $result = $m->deleteRecord('rumor', 'id', $_POST["id"]);
+    echo $result;
+}
+//Send a Porsonal Rumor
+if (isset($_POST["rumor"])) {
+    $presence = 'Private';
+    if (isset($_POST['known'])) {
+        $presence = $_POST['from'];
+    }
+    $from = $presence;
+    $to = $_POST["to"];
+    $rumor = $_POST["rumor"];
+    $dbo = new DBOperation();
+    $result = $dbo->addPersonalRumor($from, $to, $rumor);
     echo $result;
 }

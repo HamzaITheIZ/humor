@@ -57,7 +57,9 @@ class User {
         } else {
             $row = $result->fetch_assoc();
             if (password_verify($password, $row["password"])) {
-                $_SESSION["userid"] = $row["id"];;
+                $_SESSION["userid"] = $row["id"];
+                $_SESSION["username"] = $row["username"];
+                $_SESSION["useremail"] = $row["email"];
 
                 //Here we are updating user last login time when he is performing login
                 $last_login = date("d/m/Y H:i:s");
@@ -75,7 +77,42 @@ class User {
         }
     }
 
+    public function createAdminAccount($username, $email, $password) {
+        $pass_hash = password_hash($password, PASSWORD_BCRYPT, ["cost" => 8]);
+        $date = date("d/m/Y");
+        $pre_stmt = $this->con->prepare("INSERT INTO `admin`(`username`, `email`, `password`, `registerdate`)
+			 VALUES (?,?,?,?)");
+        $pre_stmt->bind_param("ssss", $username, $email, $pass_hash, $date);
+        $result = $pre_stmt->execute() or die($this->con->error);
+        if ($result) {
+            return $this->con->insert_id;
+        } else {
+            return "SOME_ERROR";
+        }
+    }
+
+    public function AdminLogin($email, $password) {
+        $pre_stmt = $this->con->prepare("SELECT id,email,username,password FROM admin WHERE email = ?");
+        $pre_stmt->bind_param("s", $email);
+        $pre_stmt->execute() or die($this->con->error);
+        $result = $pre_stmt->get_result();
+
+        if ($result->num_rows < 1) {
+            return "NOT_REGISTERD";
+        } else {
+            $row = $result->fetch_assoc();
+            if (password_verify($password, $row["password"])) {
+                $_SESSION["adminid"] = $row["id"];
+                $_SESSION["adminusername"] = $row["username"];
+                return "REGISTERD";
+            } else {
+                return "PASSWORD_NOT_MATCHED";
+            }
+        }
+    }
+
 }
+
 //$date = date("d/m/Y");
 //$user = new User();
 //echo $user->createUserAccount("Test","test@gmail.com","1234567890");

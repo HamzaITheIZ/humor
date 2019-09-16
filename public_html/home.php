@@ -1,3 +1,10 @@
+<?php
+include_once("./database/constants.php");
+
+if (!isset($_SESSION["userid"])) {
+    header("location:" . DOMAIN . "/loginUser.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -55,11 +62,20 @@
 
                                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                                     <li><a href="home.php" class="nav-link active">Home</a></li>
-                                    <li><a href="#services-section" class="nav-link">Public rumors</a></li>
                                     <li><a href="re-rumors.php" class="nav-link">Received rumors</a></li>
-                                    <li><a href="#team-section" class="nav-link">My profile</a></li>
-                                    <li><a href="login2.php" class="nav-link">Login</a></li>
-                                    <li><a href="#contact-section" class="nav-link">Contact</a></li>
+                                    <li><a href="profile.php" class="nav-link">My profile</a></li>
+                                    <?php
+                                    if (isset($_SESSION["userid"])) {
+                                        ?>
+                                        <li><a href="logout.php" class="nav-link">Logout</a></li>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <li><a href="loginUser.php" class="nav-link">Login</a></li>
+                                        <?php
+                                    }
+                                    ?>
+                                        <li><a href="contact.php" class="nav-link">Contact</a></li>
                                 </ul>
                             </nav>
 

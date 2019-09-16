@@ -24,8 +24,8 @@
                     <div class="form-group">
                         <label>Rumor Type</label>
                         <select class="form-control" id="select_Type" name="select_Type" required/>
-                            <option value="Science">Science</option>
-                            <option value="Technologie">Technologie</option>
+                        <option value="Science">Science</option>
+                        <option value="Technologie">Technologie</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -37,6 +37,10 @@
                         <textarea class="form-control" rows="10" id="article" name="article">
                             
                         </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Image</label><br>
+                        <input class="" type="file" id="file" name="file">
                     </div>
                     <button type="submit" class="btn btn-primary">Modify</button>
                 </form>

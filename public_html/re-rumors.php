@@ -56,11 +56,10 @@
 
                                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                                     <li><a href="home.php" class="nav-link">Home</a></li>
-                                    <li><a href="#services-section" class="nav-link">Public rumors</a></li>
                                     <li><a href="re-rumors.php" class="nav-link active">Received rumors</a></li>
-                                    <li><a href="#team-section" class="nav-link">My profile</a></li>
-                                    <li><a href="login2.php" class="nav-link">Login</a></li>
-                                    <li><a href="#contact-section" class="nav-link">Contact</a></li>
+                                    <li><a href="profile.php" class="nav-link">My profile</a></li>
+                                    <li><a href="logout.php" class="nav-link">Logout</a></li>
+                                    <li><a href="contact.php" class="nav-link">Contact</a></li>
                                 </ul>
                             </nav>
 

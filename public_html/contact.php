@@ -1,3 +1,10 @@
+<?php
+include_once("./database/constants.php");
+
+if (!isset($_SESSION["userid"])) {
+    header("location:" . DOMAIN . "/loginUser.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -57,11 +64,10 @@
 
                                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                                     <li><a href="home.php" class="nav-link">Home</a></li>
-                                    <li><a href="#services-section" class="nav-link">Public rumors</a></li>
                                     <li><a href="re-rumors.php" class="nav-link">Received rumors</a></li>
-                                    <li><a href="#team-section" class="nav-link">My profile</a></li>
-                                    <li><a href="login2.php" class="nav-link">Login</a></li>
-                                    <li><a href="#contact-section" class="nav-link">Contact</a></li>
+                                    <li><a href="profile.php" class="nav-link">My profile</a></li>
+                                    <li><a href="logout.php" class="nav-link">Logout</a></li>
+                                    <li><a href="contact.php" class="nav-link active">Contact</a></li>
                                 </ul>
                             </nav>
 
@@ -134,99 +140,33 @@
                             </div>
             
                         </div>-->
-            <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Contact website support</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-lg-12 mb-5">
-                                    <div class="form-group row">
-                                        <div class="col-md-12">
-                                            <textarea name="" id="" class="form-control contact-msg" placeholder="Write your message." maxlength="1000"  rows="10"></textarea>
-                                        </div>
+            <!--            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Thank you ^^</h5>
                                     </div>
-                                    <div class="form-group row">
-
-                                        <div class="col-md-12 ml-auto text-right">
-                                            <input type="submit" class="btn  mainBackColor2 text-white " value="Send" data-toggle="modal" data-dismiss="modal" data-target=".bd-example-modal-sm">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <label>we will review you request</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--                            <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                            <button type="button" class="btn mainBackColor2" >Send</button>
-                                                        </div>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="suggestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">suggest your rumor</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-lg-12 mb-5">
-                                    <div class="form-group row">
-                                        <div class="col-md-11">
-                                            <input placeholder="title of rumor" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-12">
-                                            <textarea name="" id="" class="form-control contact-msg" placeholder="details of rumor" maxlength="1000"  rows="10"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-
-                                        <div class="col-md-12 ml-auto text-right">
-                                            <input type="submit" class="btn  mainBackColor2 text-white " value="suggest" data-toggle="modal" data-dismiss="modal" data-target=".bd-example-modal-sm">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--                            <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                            <button type="button" class="btn mainBackColor2" >Send</button>
-                                                        </div>-->
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-<!--            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Thank you ^^</h5>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <label>we will review you request</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
+                        </div>-->
 
 
 
             <!--End of my modals -->
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
 
 
             <footer class="site-footer">
@@ -245,6 +185,10 @@
 
 
         </div>
+
+        <?php include_once 'templates/contactUs.php'; ?>
+        <?php include_once 'templates/suggestRumor.php'; ?>
+
 
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/jquery-ui.js"></script>

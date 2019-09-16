@@ -1,3 +1,10 @@
+<?php
+include_once("./database/constants.php");
+
+if (!isset($_SESSION["adminid"])) {
+    header("location:" . DOMAIN . "/loginAdmin.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,7 +48,7 @@
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="dashboard.php">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
                 </li>
@@ -63,8 +70,8 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Managements:</h6>
-                            <a class="collapse-item" href="manage_rumors.php">Make&Edit a Romur</a>
-                            <a class="collapse-item" href="consult_rumors.php">Reconnaissance</a>
+                            <a class="collapse-item" href="manage_rumors.php">Make a Romur</a>
+                            <a class="collapse-item" href="consult_rumors.php">Consult&Edit</a>
                         </div>
                     </div>
                 </li>

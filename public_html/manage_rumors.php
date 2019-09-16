@@ -1,11 +1,8 @@
 <?php
-/*
   include_once("./database/constants.php");
-  if (!isset($_SESSION["userid"])) {
-  header("location:" . DOMAIN . "/admin_login.php");
-  } else if ($_SESSION["role"] == "User") {
-  header("location:" . DOMAIN . "/login.php");
-  } */
+  if (!isset($_SESSION["adminid"])) {
+  header("location:" . DOMAIN . "/loginAdmin.php");
+  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -293,7 +290,7 @@
                                                 <div class="form-group row">
                                                     <div class="col-sm-1">   
                                                     </div>
-                                                    <label for="discount" class="col-sm-3 col-form-label" align="right">Title</label>
+                                                    <label class="col-sm-3 col-form-label" align="right">Title</label>
                                                     <div class="col-sm-4">
                                                         <input type="text" name="title" class="form-control form-control-sm" id="title"/>
                                                     </div>
@@ -301,7 +298,7 @@
                                                 <div class="form-group row">
                                                     <div class="col-sm-1">   
                                                     </div>
-                                                    <label for="paid" class="col-sm-3 col-form-label" align="right">Article</label>
+                                                    <label class="col-sm-3 col-form-label" align="right">Article</label>
                                                     <div class="col-sm-4">
                                                         <textarea type="text" name="article" class="form-control form-control-sm" id="article" rows="5">
 
@@ -311,7 +308,7 @@
                                                 <div class="form-group row">
                                                     <div class="col-sm-1">   
                                                     </div>
-                                                    <label for="paid" class="col-sm-3 col-form-label" align="right">Image</label>
+                                                    <label class="col-sm-3 col-form-label" align="right">Image</label>
                                                     <div class="col-sm-4">
                                                         <input class="" type="file" id="file" name="file">
                                                     </div>

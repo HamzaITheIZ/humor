@@ -1,3 +1,10 @@
+<?php
+include_once("./database/constants.php");
+
+if (!isset($_SESSION["userid"])) {
+    header("location:" . DOMAIN . "/loginUser.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,6 +21,7 @@
         <link rel="stylesheet" href="css/jquery-ui.css">
         <link rel="stylesheet" href="css/owl.carousel.min.css">
         <link rel="stylesheet" href="css/owl.theme.default.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
         <link rel="stylesheet" href="css/bootstrap-datepicker.css">
 
@@ -24,6 +32,7 @@
         <link rel="stylesheet" href="css/style.css">
 
         <link rel="stylesheet" href="ussef.css">
+        <script type="text/javascript" rel="stylesheet" src="./js/mainOperations.js"></script>
 
 
 
@@ -103,25 +112,28 @@
                         </div>
                         <div class="col-lg-6">
                             <div>
-                                <div class="block-testimony-1 text-center ">
+                                <form id="send_rumor" onsubmit="return false">
+                                    <div class="block-testimony-1 text-center ">                                    
+                                        <input type="hidden" name="from" id="from" value="<?php echo $_SESSION['username'] ?>" >
+                                        <input type="hidden" name="to" id="to" value="Shoyokousei">
+                                        <blockquote class="mb-4 newRumorContainer">
+                                            <!--<textarea rows="8"  class="p-2 written-rumor"  maxlength="250" minlength="5"></textarea>-->
+                                            <textarea name="rumor" id="rumor" rows="3"  class="p-2 written-rumor"  maxlength="300" minlength="5"></textarea>
+                                            <span class="msgLength ">0/300</span>
 
-                                    <blockquote class="mb-4 newRumorContainer">
-                                        <!--<textarea rows="8"  class="p-2 written-rumor"  maxlength="250" minlength="5"></textarea>-->
-                                        <textarea rows="3"  class="p-2 written-rumor"  maxlength="300" minlength="5"></textarea>
-                                        <span class="msgLength ">0/300</span>
-
-                                    </blockquote>
-                                    <label><input type="checkbox"> allow my name</label>
-                                    <h3 class="font-size-20 text-black">sender:<b>private</b></h3>
-                                    <button class="btn">SEND</button>
-                                </div>
+                                        </blockquote>
+                                        <label><input type="checkbox" name="known" id="known"> allow my name</label>
+                                        <h3 class="font-size-20 text-black">sender:<b>private</b></h3>
+                                        <button type="submit" class="btn btn-warning">Send</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         <div class="col-lg-3">
 
                         </div>
                     </div>
-                    
+
 
 
                 </div>

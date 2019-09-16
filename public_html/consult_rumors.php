@@ -1,11 +1,8 @@
 <?php
-/*
   include_once("./database/constants.php");
-  if (!isset($_SESSION["userid"])) {
-  header("location:" . DOMAIN . "/admin_login.php");
-  } else if ($_SESSION["role"] == "User") {
-  header("location:" . DOMAIN . "/login.php");
-  } */
+  if (!isset($_SESSION["adminid"])) {
+  header("location:" . DOMAIN . "/loginAdmin.php");
+  }
 ?>
 <!DOCTYPE html>
 <html>

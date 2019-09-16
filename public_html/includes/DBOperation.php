@@ -23,4 +23,16 @@ class DBOperation {
             return 0;
         }
     }
+    public function addPersonalRumor($from,$to,$rumor){
+        $pre_stmt = $this->con->prepare("INSERT INTO `selfrumors`(`fromUser`, `toUser`, `date`, `rumor`)
+		 VALUES (?,?,?,?)");
+        $date = date("d/m/Y");
+        $pre_stmt->bind_param("ssss", $from, $to, $date, $rumor);
+        $result = $pre_stmt->execute() or die($this->con->error);
+        if ($result) {
+            return "SelfRumor_Added";
+        } else {
+            return 0;
+        }
+    }
 }

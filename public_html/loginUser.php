@@ -1,9 +1,11 @@
+<?php
+include_once("./database/constants.php");
+
+if (isset($_SESSION["userid"])) {
+    header("location:" . DOMAIN . "/Home.php");
+}
+?>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>login page</title>
@@ -13,6 +15,8 @@ and open the template in the editor.
         <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
 
         <link rel="stylesheet" href="fonts/icomoon/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/magnific-popup.css">
@@ -23,6 +27,8 @@ and open the template in the editor.
         <link rel="stylesheet" href="css/bootstrap-datepicker.css">
 
         <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+        <script type="text/javascript" rel="stylesheet" src="./js/mainOperations.js"></script>
+
 
         <link rel="stylesheet" href="css/aos.css">
 
@@ -59,11 +65,10 @@ and open the template in the editor.
 
                                     <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                                         <li><a href="home.php" class="nav-link ">Home</a></li>
-                                        <li><a href="#services-section" class="nav-link">Public rumors</a></li>
                                         <li><a href="re-rumors.php" class="nav-link">Received rumors</a></li>
-                                        <li><a href="#team-section" class="nav-link">My profile</a></li>
-                                        <li><a href="login2.php" class="nav-link active">Login</a></li>
-                                        <li><a href="#contact-section" class="nav-link">Contact</a></li>
+                                        <li><a href="profil.php" class="nav-link">My profile</a></li>
+                                        <li><a href="loginUser.php" class="nav-link active">Login</a></li>
+                                        <li><a href="contact.php" class="nav-link">Contact</a></li>
                                     </ul>
                                 </nav>
 
@@ -90,29 +95,32 @@ and open the template in the editor.
 
                         </div>
                         <div class="col-md-4 card mx-auto p-sm-3 pl-sm-5 pr-sm-5 shadow">
+                            <form id="form_login" onsubmit="return false">
+                                <div style="text-align: center;">
+                                    <label class="mx-auto signIn">Sign In</label>
+                                </div>
+                                <div class="form-group mt-sm-2">
+                                    <input class="col-md-12 field1 form-control" id="log_email" name="log_email" type="text" placeholder="username or email">
+                                    <small id="e_error" class="form-text text-muted"></small>
+                                </div>
+                                <div class="form-group mt-sm-2 ">
+                                    <input class="col-md-12 field2 form-control " id="log_password" name="log_password" type="password" placeholder="password">
+                                    <small id="p_error" class="form-text text-muted"></small>
 
-                            <div style="text-align: center;">
-                                <label class="mx-auto signIn">Sign In</label>
-                            </div>
-                            <div class="form-group mt-sm-2">
-                                <input class="col-md-12 field1 form-control" type="text" placeholder="username or email">
-                            </div>
-                            <div class="form-group mt-sm-2 ">
-                                <input class="col-md-12 field2 form-control " type="password" placeholder="password">
-                            </div>
-                            <div class="checkbox mt-sm-2">
-                                <label><input type="checkbox" class="checkbox"> Remember me please ^^</label>
-                            </div>
-                            <div class="form-group mt-sm-2">
-                                <button class="col-md-12 btn-login">LOGIN</button>
-                            </div>
-                            <div>
-                                <label><a href="#" class="forgot">Oh..I forgot my password !</a></label>                            
-                            </div>
-                            <div>
-                                <label><a href="#" class="forgot">Create new account</a></label>                            
-                            </div>
-
+                                </div>
+                                <div class="checkbox mt-sm-2">
+                                    <label><input type="checkbox" class="checkbox"> Remember me please ^^</label>
+                                </div>
+                                <div class="form-group mt-sm-2">
+                                    <button class="col-md-12 btn-login">LOGIN</button>
+                                </div>
+                                <div>
+                                    <label><a href="#" class="forgot">Oh..I forgot my password !</a></label>                            
+                                </div>
+                                <div>
+                                    <label><a href="#" class="forgot">Create new account</a></label>                            
+                                </div>
+                            </form>
                         </div>
                         <div class="col-md-4" style="background-color: none;">
 
@@ -122,7 +130,7 @@ and open the template in the editor.
 
 
 
-
+                <?php include_once 'templates/register.php'; ?>
                 <script src="js/jquery-3.3.1.min.js"></script>
                 <script src="js/jquery-ui.js"></script>
                 <script src="js/popper.min.js"></script>
