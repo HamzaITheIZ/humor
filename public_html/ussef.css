@@ -16,15 +16,15 @@
 }
 .half2{
     color:black ;
-        /*text-decoration: underline;*/
+    /*text-decoration: underline;*/
 
 }
 
 .name{
-        font-size: 40px;
-        text-align: center;
-        /*background-color: yellow;*/
-        cursor: pointer;
+    font-size: 40px;
+    text-align: center;
+    /*background-color: yellow;*/
+    cursor: pointer;
 }
 .name:hover{
     font-size: 45px;
@@ -39,7 +39,7 @@
 }
 .field2{
     /*border-radius: 0px 0px 10px 0px;*/
-        border: 1px black solid;
+    border: 1px black solid;
 
 }
 .field:focus{
@@ -52,9 +52,46 @@
 }
 .forgot{
     color:black;
-    
+
 }
 .forgot:hover{
     color:black !important;
-   text-shadow:  2px 2px 5px purple;
+    text-shadow:  2px 2px 5px purple;
+}
+.written-rumor{
+    
+    width: 100%;
+    height: content-box;
+    border-style: none;
+    position: relative;
+    /*-moz-box-shadow: 5px 0px 10px gray, -5px 0px 10px gray,0px 5px 10px gray,0px -5px 10px gray;*/
+    /*-webkit-box-shadow: 5px 0px 10px gray, -5px 0px 10px gray,0px 5px 10px gray,0px -5px 10px gray;*/
+    box-shadow: 1px 0px 5px gray, -1px 0px 5px gray,0px 1px 5px gray,0px -1px 5px gray;
+    font-size: 25px;
+    overflow: auto;
+}
+.newRumorContainer{
+    position: relative;
+}
+.msgLength{
+    position: absolute;
+    right:25px;
+    bottom: 5px;
+}
+
+.contact-choice{
+    background-color: white !important;
+    color: purple;
+    font-size: 50px;
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+    border: 2px purple solid;
+    border-radius: 10px;
+}
+.contact-choice:hover{
+    box-shadow: 1px 0px 10px gray, -1px 0px 10px gray,0px 1px 10px gray,0px -1px 10px gray;
+    background-color: purple !important;
+    color: white;
+    border: 3px white solid;
 }
