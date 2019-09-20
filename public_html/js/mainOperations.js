@@ -321,8 +321,11 @@ $(document).ready(function () {
                 method: 'POST',
                 data: {deleteRumor: 1, id: did},
                 success: function (data) {
-                    alert("Rumor is Deleted Successfully!");
-                    consultRumors();
+                    if (data == "DELETED") {
+                        alert("Rumor is Deleted Successfully!");
+                        consultRumors();
+                    } else
+                        alert(data);
                 }
             })
         }
@@ -344,13 +347,128 @@ $(document).ready(function () {
                 success: function (data) {
                     if (data == "SelfRumor_Added") {
                         alert("Your Rumor is successfully Saved!");
-                        window.location.href = DOMAIN+"/write-rumor.php";
+                        window.location.href = DOMAIN + "/write-rumor.php";
                     } else
                         alert(data);
                 }
             })
         }
     })
+//----------------Suggest Rumor-------------------------
+    $("#suggestRumor").on('submit', function () {
+        var rumor = $("#suggest_rumor_title");
+        var article = $("#suggest_article");
+        var statue = false;
+
+        if (rumor.val() == "") {
+            statue = false;
+            alert("write something");
+        } else {
+            statue = true;
+        }
+        if (article.val() == "") {
+            statue = false;
+        } else
+            statue = true;
+
+        if (statue == true) {
+            $.ajax({
+                url: DOMAIN + "/includes/process.php",
+                method: "POST",
+                data: $("#suggestRumor").serialize(),
+                success: function (data) {
+                    if (data == "Suggest_Added") {
+                        alert("Your Suggested Rumor is successfully Saved!");
+                        rumor.val('');
+                        article.val('');
+                        $('#suggestModal').modal('toggle');
+                    } else
+                        alert(data);
+                }
+            })
+        } else
+            alert("There is an Error in your entries!");
+
+
+    })
+//----------------Simple Contact-------------------------
+    $("#simple_contact").on('submit', function () {
+        var message = $("#contact_message");
+        var statue = false;
+
+        if (message.val() == "") {
+            statue = false;
+            alert("write a message man the empty one will get a misunderstanding! ^^");
+        } else {
+            statue = true;
+        }
+
+        if (statue == true) {
+            $.ajax({
+                url: DOMAIN + "/includes/process.php",
+                method: "POST",
+                data: $("#simple_contact").serialize(),
+                success: function (data) {
+                    if (data == "Contact_message_Added") {
+                        alert("Your Contact Message is successfully Saved!");
+                        message.val('');
+                        $('#contactModal').modal('toggle');
+                    } else
+                        alert(data);
+                }
+            })
+        }
+    })
+    
+    
+    //Notification Suggested Rumors
+    suggestedRumors();
+    function suggestedRumors() {
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            method: "POST",
+            data: {suggested_rumors: 1},
+            success: function (data) {
+                $("#suggested_rumors").html(data);
+            }
+        })
+    }
+    //Ftech Suggested Rumors Totale
+    suggestedRumorsTotale();
+    function suggestedRumorsTotale() {
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            method: "POST",
+            data: {totaleSuggested: 1},
+            success: function (data) {
+                $("#rumors_number").html(data);
+            }
+        })
+    }
+    //Notification Contact Messages
+    contactMessages();
+    function contactMessages() {
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            method: "POST",
+            data: {Messages: 1},
+            success: function (data) {
+                $("#contact_messages").html(data);
+            }
+        })
+    }
+    //Ftech Contact Messages Totale
+    contactMessagesTotale();
+    function contactMessagesTotale() {
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            method: "POST",
+            data: {totaleMessages: 1},
+            success: function (data) {
+                $("#totale_messages").html(data);
+            }
+        })
+    }
 
 //-----------------------------------------------------------------------
 

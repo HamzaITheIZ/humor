@@ -189,3 +189,84 @@ if (isset($_POST["rumor"])) {
     $result = $dbo->addPersonalRumor($from, $to, $rumor);
     echo $result;
 }
+//Insert Suggested Rumor
+if (isset($_POST['suggest_rumor_title'])) {
+    $dbo = new DBOperation();
+    $result = $dbo->addSuggestRumor($_POST['username'], $_POST['suggest_rumor_title'], $_POST['suggest_article']);
+    echo $result;
+}
+
+//Insert COntact Message
+if (isset($_POST['contact_message'])) {
+    $dbo = new DBOperation();
+    $result = $dbo->addContactMessage($_POST['username'], $_POST['contact_message']);
+    echo $result;
+}
+//Notification Suggested Rumors
+if (isset($_POST["suggested_rumors"])) {
+    $dbo = new DBOperation();
+    $result = $dbo->getAllRecord('suggestrumors');
+    if (count($result) > 0) {
+        foreach ($result as $row) {
+            ?>
+            <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                        <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="small text-gray-500"><?php echo $row['date']; ?></div>
+                    <span class="font-weight-bold"><?php echo $row['title']; ?></span>
+                </div>
+            </a>
+            <?php
+        }
+        ?>
+        <?php
+        exit();
+    }
+}
+//Suggested Rumors Totale
+if (isset($_POST["totaleSuggested"])) {
+    $obj = new DBOperation();
+    $row = $obj->getAllStat("suggestrumors");
+
+    echo $row["totale"];
+
+    exit();
+}
+
+//Notification Contact Messages
+if (isset($_POST["Messages"])) {
+    $dbo = new DBOperation();
+    $result = $dbo->getAllRecord('usercontact');
+    if (count($result) > 0) {
+        foreach ($result as $row) {
+            ?>
+            <a class="dropdown-item d-flex align-items-center" href="#">
+                <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="ussefpic/unknown.png">
+                    <div class="status-indicator"></div>
+                </div>
+                <div>
+                    <div class="text-truncate"><?php echo $row['message']; ?></div>
+                    <div class="small text-gray-500">from "<?php echo $row['username']; ?>" at <?php echo $row['date']; ?> </div>
+                </div>
+            </a>
+            <?php
+        }
+        ?>
+        <?php
+        exit();
+    }
+}
+//Contacte Message Totale
+if (isset($_POST["totaleMessages"])) {
+    $obj = new DBOperation();
+    $row = $obj->getAllStat("usercontact");
+
+    echo $row["totale"];
+
+    exit();
+}

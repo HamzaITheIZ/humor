@@ -9,25 +9,24 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-12 mb-5">
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <textarea name="" id="" class="form-control contact-msg" placeholder="Write your message." maxlength="1000"  rows="10"></textarea>
+                <form id="simple_contact" onsubmit="return false">
+                    <input type="hidden" id="username" name="username" value="<?php echo $_SESSION['username']; ?>" >
+                    <div class="row">
+                        <div class="col-lg-12 mb-5">
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <textarea name="contact_message" id="contact_message" class="form-control contact-msg" placeholder="Write your message." maxlength="1000"  rows="10"></textarea>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
+                            <div class="form-group row">
 
-                            <div class="col-md-12 ml-auto text-right">
-                                <input type="submit" class="btn  mainBackColor2 text-white " value="Send" data-toggle="modal" data-dismiss="modal" data-target=".bd-example-modal-sm">
+                                <div class="col-md-12 ml-auto text-right">
+                                    <button type="submit" class="btn  mainBackColor2 text-white">Send</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                <button type="button" class="btn mainBackColor2" >Send</button>
-                                            </div>-->
+                </form>
             </div>
         </div>
     </div>

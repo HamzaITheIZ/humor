@@ -9,30 +9,29 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-12 mb-5">
-                        <div class="form-group row">
-                            <div class="col-md-11">
-                                <input placeholder="title of rumor" class="form-control">
+                <form onsubmit="return false" id="suggestRumor">
+                    <div class="row">
+                        <div class="col-lg-12 mb-5">
+                            <div class="form-group row">
+                                <input type="hidden" id="username" name="username" value="<?php echo $_SESSION['username']; ?>" >
+                                <div class="col-md-11">
+                                    <input placeholder="title of rumor" class="form-control" id="suggest_rumor_title" name="suggest_rumor_title">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <textarea name="" id="" class="form-control contact-msg" placeholder="details of rumor" maxlength="1000"  rows="10"></textarea>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <textarea class="form-control contact-msg" placeholder="details of rumor" maxlength="1000"  rows="10" id="suggest_article" name="suggest_article" ></textarea>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
+                            <div class="form-group row">
 
-                            <div class="col-md-12 ml-auto text-right">
-                                <input type="submit" class="btn  mainBackColor2 text-white " value="suggest" data-toggle="modal" data-dismiss="modal" data-target=".bd-example-modal-sm">
+                                <div class="col-md-12 ml-auto text-right">
+                                    <button class="btn  mainBackColor2 text-white " type="submit">Suggest</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                <button type="button" class="btn mainBackColor2" >Send</button>
-                                            </div>-->
+                </form>
             </div>
         </div>
     </div>

@@ -13,7 +13,7 @@ if (!isset($_SESSION["userid"])) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,700" rel="stylesheet">
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="stylesheet" href="fonts/icomoon/style.css">
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -31,6 +31,7 @@ if (!isset($_SESSION["userid"])) {
         <link rel="stylesheet" href="css/style.css">
 
         <link rel="stylesheet" href="ussef.css">
+        <script type="text/javascript" src="./js/mainOperations.js"></script>
 
 
 
