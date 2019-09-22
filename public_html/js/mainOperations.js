@@ -280,7 +280,7 @@ $(document).ready(function () {
         })
     }
 
-    //Update Rumors
+    //Fetch Rumor Edit Form After Getting Data
     $("body").delegate(".edit_rumor", "click", function () {
         var eid = $(this).attr("eid");
         $.ajax({
@@ -330,6 +330,7 @@ $(document).ready(function () {
             })
         }
     })
+    //Create Send Rumors
     $('#send_rumor').on("submit", function () {
         var statue = false;
         var rumor = $('#rumor');
@@ -388,8 +389,70 @@ $(document).ready(function () {
             })
         } else
             alert("There is an Error in your entries!");
-
-
+    })
+    //Fetch Suggested Rumors
+    consultSuggestedRumors();
+    function consultSuggestedRumors() {
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            method: "POST",
+            data: {suggested_rumors_info: 1},
+            success: function (data) {
+                $("#get_suggested_rumors").html(data);
+            }
+        })
+    }
+    //Ftech To Update Suggested Rumors
+    $("body").delegate(".create_rumor", "click", function () {
+        var eid = $(this).attr("eid");
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            method: "POST",
+            dataType: "json",
+            data: {updateSuggestedRumor: 1, id: eid},
+            success: function (data) {
+                console.log(data);
+                $("#Suggested_rumor_title").val(data["title"]);
+                $("#article").val(data["article"]);
+                $("#admin").val(data["username"]);
+            }
+        })
+    })
+    //create Suggested rumor as a rumor
+    $("#create_rumor_form").on("submit", function () {
+        alert("hola");
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            type: "POST",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                if (data == "Rumor_Added") {
+                    alert("Rumor is successfully inserted");
+                    $('#form_create_rumors').modal('toggle');
+                } else
+                    alert(data);
+            }
+        })
+    })
+    //delete Suggested rumor
+    $("body").delegate(".del_sugg_rumor", "click", function () {
+        var did = $(this).attr("did");
+        if (confirm('Are You sure You want to Delete this Rumor?!')) {
+            $.ajax({
+                url: DOMAIN + "/includes/process.php",
+                method: 'POST',
+                data: {deleteSuggestedRumor: 1, id: did},
+                success: function (data) {
+                    if (data == "DELETED") {
+                        alert("Suggested Rumor is Deleted Successfully!");
+                        consultSuggestedRumors();
+                    } else
+                        alert(data);
+                }
+            })
+        }
     })
 //----------------Simple Contact-------------------------
     $("#simple_contact").on('submit', function () {
@@ -419,8 +482,12 @@ $(document).ready(function () {
             })
         }
     })
-    
-    
+    //-------------Notifications--------------
+    window.setInterval(suggestedRumors, 10000);
+    window.setInterval(suggestedRumorsTotale, 10000);
+    window.setInterval(contactMessages, 10000);
+    window.setInterval(contactMessagesTotale, 10000);
+
     //Notification Suggested Rumors
     suggestedRumors();
     function suggestedRumors() {
@@ -469,6 +536,50 @@ $(document).ready(function () {
             }
         })
     }
+//-------------History--------------
+    //Fetch History
+    consultHistory();
+    function consultHistory() {
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            method: "POST",
+            data: {history_info: 1},
+            success: function (data) {
+                $("#get_history").html(data);
+            }
+        })
+    }
+//-------------Users Messages-------------
+    //Fetch Suggested Rumors
+    fetchMessage();
+    function fetchMessage() {
+        $.ajax({
+            url: DOMAIN + "/includes/process.php",
+            method: "POST",
+            data: {messages_info: 1},
+            success: function (data) {
+                $("#get_messages").html(data);
+            }
+        })
+    }
+    //delete user message
+    $("body").delegate(".del_message", "click", function () {
+        var did = $(this).attr("did");
+        if (confirm('Are You sure You want to Delete this Message?!')) {
+            $.ajax({
+                url: DOMAIN + "/includes/process.php",
+                method: 'POST',
+                data: {deleteMessage: 1, id: did},
+                success: function (data) {
+                    if (data == "DELETED") {
+                        alert("The Message is Deleted Successfully!");
+                        fetchMessage();
+                    } else
+                        alert(data);
+                }
+            })
+        }
+    })
 
 //-----------------------------------------------------------------------
 

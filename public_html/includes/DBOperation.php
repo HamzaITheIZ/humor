@@ -75,9 +75,8 @@ class DBOperation {
             while ($row = $result->fetch_assoc()) {
                 $rows[] = $row;
             }
-            return $rows;
         }
-        return "NO_DATA";
+        return $rows;
     }
         public function getAllStat($table) {
         $sql = "SELECT Count(*) as 'totale' FROM " . $table;

@@ -55,7 +55,7 @@ if (!isset($_SESSION["adminid"])) {
                 </div>
 
                 <!-- Nav Item - Pages Collapse Menu -->
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                         <i class="fas fa-fw fa-cog"></i>
                         <span>Rumors</span>
@@ -71,7 +71,7 @@ if (!isset($_SESSION["adminid"])) {
                 </li>
 
                 <!-- Nav Item - Utilities Collapse Menu -->
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
                         <i class="fas fa-fw fa-wrench"></i>
                         <span>Users Services</span>
@@ -122,7 +122,7 @@ if (!isset($_SESSION["adminid"])) {
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
                         <br>                        <br>
-                        <h1 class="titleH1" style="text-align: center;">Available Rumors</h1>
+                        <h1 class="titleH1" style="text-align: center;">Users Messages</h1>
                         <br>
                         <br>
                         <div class="container text-center" style="max-width: 1340px;">                            
@@ -134,16 +134,13 @@ if (!isset($_SESSION["adminid"])) {
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Image</th>
-                                        <th>Admin</th>
+                                        <th>User Name</th>
+                                        <th>Message</th>
                                         <th>Date</th>
-                                        <th>Type</th>
-                                        <th>Title</th>
-                                        <th>Article</th>
                                         <th>Operations</th>
                                     </tr>
                                 </thead>
-                                <tbody id="get_rumors">
+                                <tbody id="get_messages">
 
                                 </tbody>
                             </table>
@@ -176,7 +173,6 @@ if (!isset($_SESSION["adminid"])) {
             <i class="fas fa-angle-up"></i>
         </a>
         <?php include_once 'templates/logout.php' ?>
-        <?php include_once 'templates/update_rumor.php'; ?>
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

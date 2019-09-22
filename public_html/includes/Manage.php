@@ -18,7 +18,7 @@ class Manage {
         $pre_stmt->bind_param("i", $id);
         $result = $pre_stmt->execute() or die($this->con->error);
         if ($result) {
-            if ($table == 'rumor') {
+            if ($table === 'rumor') {
                 $date = date("d/m/Y H:i:s");
                 $insertquery = "insert into history values('Deleted','" . $_SESSION['adminusername'] . "','" . $date . "')";
                 $this->con->query($insertquery) or die($this->con->error);
@@ -62,8 +62,8 @@ class Manage {
         }
     }
 
-    public function consultRumors() {
-        $sql = "Select * from rumor";
+    public function consultRumors($table) {
+        $sql = "Select * from ".$table;
         $result = $this->con->query($sql) or die($this->con->error);
         $rows = array();
         if ($result->num_rows > 0) {

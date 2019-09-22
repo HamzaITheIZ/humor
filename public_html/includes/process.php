@@ -76,7 +76,7 @@ if (isset($_POST["rumor_type"])) {
 //Fetch Rumors
 if (isset($_POST["rumors_info"])) {
     $m = new Manage();
-    $result = $m->consultRumors();
+    $result = $m->consultRumors('rumor');
     $rows = $result["rows"];
     if (count($rows) > 0) {
         $n = 1;
@@ -103,14 +103,6 @@ if (isset($_POST["rumors_info"])) {
         exit();
     }
 }
-//Delete Rumor
-if (isset($_POST["deleteRumor"])) {
-    $m = new Manage();
-    $result = $m->deleteRecord("rumor", "id", $_POST["id"]);
-    echo $result;
-}
-
-
 //Set Rumor
 if (isset($_POST["updateRumor"])) {
     $m = new Manage();
@@ -216,7 +208,7 @@ if (isset($_POST["suggested_rumors"])) {
                     </div>
                 </div>
                 <div>
-                    <div class="small text-gray-500"><?php echo $row['date']; ?></div>
+                    <div class="small text-gray-500">At <?php echo $row['date']; ?>, with the title bellow</div>
                     <span class="font-weight-bold"><?php echo $row['title']; ?></span>
                 </div>
             </a>
@@ -269,4 +261,148 @@ if (isset($_POST["totaleMessages"])) {
     echo $row["totale"];
 
     exit();
+}
+//----------------Suggested Rumors--------------------
+//Fetch Suggested Rumors
+if (isset($_POST["suggested_rumors_info"])) {
+    $m = new Manage();
+    $result = $m->consultRumors('suggestrumors');
+    $rows = $result["rows"];
+    if (count($rows) > 0) {
+        $n = 1;
+        foreach ($rows as $row) {
+            ?>
+            <tr>
+                <td><?php echo $n; ?></td>
+                <td><?php echo $row["username"]; ?></td>
+                <td><?php echo $row["title"]; ?></td>
+                <td><?php echo $row["article"]; ?></td>
+                <td><?php echo $row["date"]; ?></td>
+                <td>
+                    <a href="#" did="<?php echo $row['id']; ?>" class="btn btn-danger btn-sm del_sugg_rumor"><i class="fa fa-trash-alt">&nbsp;</i>Delete</a>
+                    <a href="#" eid="<?php echo $row['id']; ?>" data-toggle="modal" data-target="#form_create_rumors" class="btn btn-info btn-sm create_rumor"><i class="fa fa-pencil-alt">&nbsp;</i>Make it as Rumor</a>
+                </td>
+            </tr>
+            <?php
+            $n++;
+        }
+        ?>
+        <?php
+        exit();
+    }
+}
+//Set Suggested Rumor
+if (isset($_POST["updateSuggestedRumor"])) {
+    $m = new Manage();
+    $result = $m->getSingleRecord("suggestrumors", "id", $_POST["id"]);
+    echo json_encode($result);
+    exit();
+}
+//Update Record after getting suggested rumors
+if (isset($_POST["Suggested_rumor_title"])) {
+    $file = $_FILES["file"];
+
+    $filename = $_FILES["file"]['name'];
+    $fileTmpName = $_FILES["file"]['tmp_name'];
+    $fileSize = $_FILES["file"]['size'];
+    $fileError = $_FILES["file"]['error'];
+    $fileType = $_FILES["file"]['type'];
+
+    $fileExt = explode('.', $filename);
+    $fileActualExt = strtolower(end($fileExt));
+
+    $allowed = array('jpg', 'jpeg', 'png');
+    if ($_FILES["file"]["name"] != "") {
+        if (in_array($fileActualExt, $allowed)) {
+            if ($fileError === 0) {
+                if ($fileSize < 1000000) {
+                    $destination_path = $_SERVER['DOCUMENT_ROOT'];
+                    $fileNameNew = uniqid('', TRUE) . "." . $fileActualExt;
+                    $fileDestination = $destination_path . "/Icha3a/public_html/images/" . $fileNameNew;
+                    move_uploaded_file($fileTmpName, $fileDestination);
+
+                    $dbo = new DBOperation();
+                    $result = $dbo->addRumor($_POST["admin"], $_POST["date"], $_POST["Type"], $_POST["Suggested_rumor_title"], $_POST["article"], $fileNameNew);
+                    echo $result;
+                    exit();
+                } else {
+                    echo 'Your File is much bigger than the maximum size!';
+                    exit();
+                }
+            } else {
+                echo 'there was an error uploading your file!';
+                exit();
+            }
+        } else {
+            echo "you cannout upload files of that type!";
+            exit();
+        }
+    } else {
+        echo "Don't forget the image!";
+        exit();
+    }
+}
+//Delere Suggested Rumor
+if (isset($_POST["deleteSuggestedRumor"])) {
+    $m = new Manage();
+    $result = $m->deleteRecord('suggestrumors', 'id', $_POST["id"]);
+    echo $result;
+}
+//-----------------History-----------------
+if (isset($_POST['history_info'])) {
+    $dbo = new DBOperation();
+    $result = $dbo->getAllRecord('history');
+    $rows = $result;
+    if (count($rows) > 0) {
+        $n = 1;
+        foreach ($rows as $row) {
+            ?>
+            <tr>
+                <td><?php echo $n; ?></td>
+                <td><?php echo $row["operation"]; ?></td>
+                <td><?php echo $row["admin"]; ?></td>
+                <td><?php echo $row["date"]; ?></td>
+            </tr>
+            <?php
+            $n++;
+        }
+        ?>
+        <?php
+        exit();
+    }
+}
+//--------------------Users Messages-------------------
+//Fetch Messages
+if (isset($_POST["messages_info"])) {
+    $dbo = new DBOperation();
+    $result = $dbo->getAllRecord('usercontact');
+    $rows = $result;
+    if (count($rows) > 0) {
+        $n = 1;
+        foreach ($rows as $row) {
+            ?>
+            <tr>
+                <td><?php echo $n; ?></td>
+                <td><?php echo $row["username"]; ?></td>
+                <td><?php echo $row["message"]; ?></td>
+                <td><?php echo $row["date"]; ?></td>
+                <td>
+                    <a href="#" did="<?php echo $row['id']; ?>" class="btn btn-danger btn-sm del_message"><i class="fa fa-trash-alt">&nbsp;</i>Delete</a>
+                    <a href="#" eid="<?php echo $row['id']; ?>" data-toggle="modal" data-target="#responseModal" class="btn btn-info btn-sm con_response"><i class="fa fa-pencil-alt">&nbsp;</i>Response The Message</a>
+                </td>
+            </tr>
+            <?php
+            $n++;
+        }
+        ?>
+        <?php
+        exit();
+    }
+}
+//delete message
+//Delere Rumor
+if (isset($_POST["deleteMessage"])) {
+    $m = new Manage();
+    $result = $m->deleteRecord('usercontact', 'id', $_POST["id"]);
+    echo $result;
 }

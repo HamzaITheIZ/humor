@@ -122,7 +122,7 @@ if (!isset($_SESSION["adminid"])) {
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
                         <br>                        <br>
-                        <h1 class="titleH1" style="text-align: center;">Available Rumors</h1>
+                        <h1 class="titleH1" style="text-align: center;">Suggested Rumors</h1>
                         <br>
                         <br>
                         <div class="container text-center" style="max-width: 1340px;">                            
@@ -134,16 +134,14 @@ if (!isset($_SESSION["adminid"])) {
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Image</th>
-                                        <th>Admin</th>
-                                        <th>Date</th>
-                                        <th>Type</th>
-                                        <th>Title</th>
-                                        <th>Article</th>
+                                        <th>User Name</th>
+                                        <th>Rumor Title</th>
+                                        <th>Rumor Article</th>
+                                        <th>Rumor Date</th>
                                         <th>Operations</th>
                                     </tr>
                                 </thead>
-                                <tbody id="get_rumors">
+                                <tbody id="get_suggested_rumors">
 
                                 </tbody>
                             </table>
@@ -176,7 +174,7 @@ if (!isset($_SESSION["adminid"])) {
             <i class="fas fa-angle-up"></i>
         </a>
         <?php include_once 'templates/logout.php' ?>
-        <?php include_once 'templates/update_rumor.php'; ?>
+        <?php include_once 'templates/create_rumor.php'; ?>
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
